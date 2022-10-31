@@ -1,8 +1,9 @@
 import { Button, Col, Input, Row } from 'antd';
+import styles from './Signin.module.css';
 
 const Signin = () => {
   return (
-    <Row align='middle'>
+    <Row align='middle' className={styles.signin_row}>
       <Col span={24}>
         <Row>
           <Col span={12}></Col>
