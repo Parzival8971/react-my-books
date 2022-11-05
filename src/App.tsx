@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
+import ErrorBoundary from 'react-error-boundary';
 
 import Add from './pages/Add';
 import Detail from './pages/Detail';
