@@ -1,3 +1,4 @@
+import { BookReqType } from './../types';
 import axios from 'axios';
 
 import { BookType } from '../types';
@@ -12,5 +13,25 @@ export default class BookService {
       },
     });
     return response.data;
+  }
+
+  public static async addBook(
+    token: string,
+    book: BookReqType
+  ): Promise<BookType> {
+    const response = await axios.post(BOOK_API_URL, book, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  }
+
+  public static async deleteBook(token: string, bookId: number) {
+    await axios.delete(`${BOOK_API_URL}/${bookId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 }

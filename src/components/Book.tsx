@@ -11,7 +11,9 @@ import moment from 'moment';
 import { Button, Tooltip } from 'antd';
 import styles from './Book.module.css';
 
-interface BookProps extends BookType {}
+interface BookProps extends BookType {
+  deleteBook: (bookId: number) => void;
+}
 
 const Book: React.FC<BookProps> = ({
   bookId,
@@ -19,6 +21,7 @@ const Book: React.FC<BookProps> = ({
   author,
   createAt,
   url,
+  deleteBook,
 }) => {
   return (
     <div className={styles.book}>
@@ -67,11 +70,16 @@ const Book: React.FC<BookProps> = ({
             shape='circle'
             danger
             icon={<DeleteOutlined />}
+            onClick={clickDelete}
           />
         </Tooltip>
       </div>
     </div>
   );
+
+  function clickDelete() {
+    deleteBook(bookId);
+  }
 };
 
 export default Book;

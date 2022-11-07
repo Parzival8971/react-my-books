@@ -1,6 +1,7 @@
-import { BooksState, BookType } from './../../types';
-import { createActions, handleActions } from 'redux-actions';
-import { takeLatest, select, put, call } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
+import { BooksState, BookType, BookReqType } from './../../types';
+import { Action, createActions, handleActions } from 'redux-actions';
+import { takeLatest, select, put, call, takeEvery } from 'redux-saga/effects';
 import BookService from '../../services/BookService';
 
 const initialState: BooksState = {
@@ -40,9 +41,14 @@ export default reducer;
 
 // saga
 
-export const { getBooks } = createActions('GET_BOOKS', {
-  prefix,
-});
+export const { getBooks, addBook, deleteBook } = createActions(
+  'GET_BOOKS',
+  'ADD_BOOK',
+  'DELETE_BOOK',
+  {
+    prefix,
+  }
+);
 
 function* getBooksSaga() {
   try {
@@ -55,6 +61,38 @@ function* getBooksSaga() {
   }
 }
 
+function* addBookSaga(action: Action<BookReqType>) {
+  try {
+    yield put(pending());
+    const token: string = yield select((state) => state.auth.token);
+    const book: BookType = yield call(
+      BookService.addBook,
+      token,
+      action.payload
+    );
+    const books: BookType[] = yield select((state) => state.books.books);
+    yield put(success([...books, book]));
+    yield put(push('/'));
+  } catch (error) {
+    yield put(fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR')));
+  }
+}
+
+function* deleteBookSaga(action: Action<number>) {
+  try {
+    const bookId = action.payload;
+    yield put(pending());
+    const token: string = yield select((state) => state.auth.token);
+    yield call(BookService.deleteBook, token, bookId);
+    const books: BookType[] = yield select((state) => state.books.books);
+    yield put(success(books.filter((book) => book.bookId !== bookId)));
+  } catch (error) {
+    yield put(fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR')));
+  }
+}
+
 export function* booksSaga() {
   yield takeLatest(`${prefix}/GET_BOOKS`, getBooksSaga);
+  yield takeEvery(`${prefix}/ADD_BOOK`, addBookSaga);
+  yield takeEvery(`${prefix}/DELETE_BOOK`, deleteBookSaga);
 }
