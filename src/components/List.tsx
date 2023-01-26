@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Layout from './Layout';
-import { Button, PageHeader } from 'antd';
+import { Button, PageHeader, Table } from 'antd';
 
 import { BookResType } from '../types';
 
@@ -32,6 +32,22 @@ export const List = ({ books, loading, getBooks }: BooksProps) => {
             로그아웃
           </Button>,
         ]}
+      />
+      <Table
+        dataSource={books || []}
+        columns={[
+          {
+            title: '나의 책 목록',
+            dataIndex: 'book',
+            key: 'book',
+            render: (_, record) => <div>book</div>,
+          },
+        ]}
+        loading={books === null || loading}
+        // 상단헤더 부분
+        showHeader={true}
+        rowKey='bookId'
+        pagination={false}
       />
     </Layout>
   );

@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import * as S from './Layout.styles';
 
 interface ChildernProps {
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 const Layout = ({ children }: ChildernProps) => {
