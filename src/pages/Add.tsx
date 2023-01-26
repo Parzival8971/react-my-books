@@ -1,9 +1,7 @@
-import React from 'react';
+import AddContainer from '../containers/AddContainer';
 
-type Props = {};
-
-const Add = (props: Props) => {
-  return <div>Add</div>;
+const Add = () => {
+  return <AddContainer />;
 };
 
 export default Add;
