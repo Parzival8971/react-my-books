@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+// fallback ui
 import { ErrorBoundary } from 'react-error-boundary';
-
+// router page
 import Home from './pages/Home';
 import Signin from './pages/Signin';
 import Add from './pages/Add';
