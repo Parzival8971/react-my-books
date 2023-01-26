@@ -3,6 +3,7 @@ import Layout from './Layout';
 import { Button, PageHeader, Table } from 'antd';
 
 import { BookResType } from '../types';
+import Book from './Book';
 
 interface BooksProps {
   books: BookResType[] | null;
@@ -40,7 +41,8 @@ export const List = ({ books, loading, getBooks }: BooksProps) => {
             title: '나의 책 목록',
             dataIndex: 'book',
             key: 'book',
-            render: (_, record) => <div>book</div>,
+            // ...record는 dataSource에 넣어준 값들을 펼쳐서 넣어줌
+            render: (_, record) => <Book {...record} />,
           },
         ]}
         loading={books === null || loading}
