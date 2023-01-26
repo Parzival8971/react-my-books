@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { UserOutlined } from '@ant-design/icons';
 import { Col, Input } from 'antd';
 import * as S from './Signin.styles';
 
@@ -39,7 +40,9 @@ const Signin = ({ login }: SigninProps) => {
                 placeholder='Email'
                 autoComplete='email'
                 name='email'
+                prefix={<UserOutlined />}
                 ref={emailRef}
+                defaultValue='mark@test.com'
               />
             </S.InputArea>
             <S.PasswordTitle>
@@ -48,9 +51,11 @@ const Signin = ({ login }: SigninProps) => {
             </S.PasswordTitle>
             <S.InputArea>
               <S.SigninInput
+                placeholder='password'
                 type='password'
                 autoComplete='current-password'
                 ref={passwordRef}
+                defaultValue='fastcampus'
               />
             </S.InputArea>
             <S.ButtonArea>
