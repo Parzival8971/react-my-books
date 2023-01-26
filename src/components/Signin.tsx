@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Button, Col, Input, Row } from 'antd';
+import { Col, Input } from 'antd';
 import * as S from './Signin.styles';
 
 import { LoginReqType } from '../types';
@@ -9,12 +9,14 @@ interface SigninProps {
 }
 
 const Signin = ({ login }: SigninProps) => {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  // antd의 Input tpye 바인딩
+  const emailRef = useRef<Input>(null);
+  const passwordRef = useRef<Input>(null);
 
   const handleSubmit = () => {
-    const email = emailRef.current!.value;
-    const password = passwordRef.current!.value;
+    // antd의 value값은 state에 있음
+    const email = emailRef.current!.state.value;
+    const password = passwordRef.current!.state.value;
     console.log(email, password);
     login({ email, password });
   };
@@ -37,6 +39,7 @@ const Signin = ({ login }: SigninProps) => {
                 placeholder='Email'
                 autoComplete='email'
                 name='email'
+                ref={emailRef}
               />
             </S.InputArea>
             <S.PasswordTitle>
@@ -44,10 +47,16 @@ const Signin = ({ login }: SigninProps) => {
               <S.Required> *</S.Required>
             </S.PasswordTitle>
             <S.InputArea>
-              <S.SigninInput type='password' autoComplete='current-password' />
+              <S.SigninInput
+                type='password'
+                autoComplete='current-password'
+                ref={passwordRef}
+              />
             </S.InputArea>
             <S.ButtonArea>
-              <S.SigninButton size='large'>로그인</S.SigninButton>
+              <S.SigninButton size='large' onClick={handleSubmit}>
+                로그인
+              </S.SigninButton>
             </S.ButtonArea>
           </Col>
         </S.SigninContents>
