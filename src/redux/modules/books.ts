@@ -2,7 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { BookService } from '../../services/BookService';
 
-import { BookResType, CustomError_Class } from '../../types';
+import { BookResType, customError } from '../../types';
 
 export interface BooksState {
   books: BookResType[] | null;
@@ -59,7 +59,7 @@ function* getBooksSaga() {
     // console.log(error.code);
     // console.log(error.message);
     // console.log(error?.response?.data?.error);
-    if (error instanceof CustomError_Class) {
+    if (error instanceof customError) {
       yield put(
         fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
       );

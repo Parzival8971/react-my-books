@@ -8,17 +8,32 @@ import Book from './Book';
 interface BooksProps {
   books: BookResType[] | null;
   loading: boolean;
+  error: Error | null;
   getBooks: () => void;
+  logout: () => void;
+  goAdd: () => void;
 }
 
-export const List = ({ books, loading, getBooks }: BooksProps) => {
+export const List = ({
+  books,
+  loading,
+  getBooks,
+  error,
+  logout,
+  goAdd,
+}: BooksProps) => {
   useEffect(() => {
     getBooks();
   }, [getBooks]);
 
+  // data를 가져오다가 에러가 생겼을 경우 로직
+  useEffect(() => {
+    if (error) {
+      logout();
+    }
+  }, []);
+
   const addBook = () => {};
-  const logout = () => {};
-  const goAdd = () => {};
 
   return (
     <Layout>

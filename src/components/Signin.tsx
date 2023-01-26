@@ -18,7 +18,6 @@ const Signin = ({ login }: SigninProps) => {
     // antd의 value값은 state에 있음
     const email = emailRef.current!.state.value;
     const password = passwordRef.current!.state.value;
-    console.log(email, password);
     login({ email, password });
   };
 

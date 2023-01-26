@@ -4,7 +4,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { UserService } from '../../services/UserService';
 
-import { CustomError_Class, LoginReqType } from '../../types';
+import { customError, LoginReqType } from '../../types';
 
 export interface AuthState {
   token: string | null;
@@ -70,12 +70,13 @@ function* loginSaga(action: LoginSagaAction) {
     // Success
     yield put(success(token));
     // push not complate
-  } catch (error: unknown) {
+  } catch (error) {
     // 타입가드로 클래스 에러 객체 사용(에러 부분 어려움)
+    // console.log(error);
     // console.log(error.code);
     // console.log(error.message);
     // console.log(error?.response?.data?.error);
-    if (error instanceof CustomError_Class) {
+    if (error instanceof customError) {
       yield put(
         fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
       );

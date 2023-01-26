@@ -1,5 +1,5 @@
 // Error 타입
-export class CustomError_Class extends Error {
+export class customError extends Error {
   response?: {
     data: any;
     status: number;
