@@ -36,7 +36,7 @@ const Signin = ({ login }: SigninProps) => {
             </S.EmailTitle>
             <S.InputArea>
               <S.SigninInput
-                placeholder='Email'
+                placeholder='이메일을 입력해주세요.'
                 autoComplete='email'
                 name='email'
                 prefix={<UserOutlined />}
@@ -50,7 +50,7 @@ const Signin = ({ login }: SigninProps) => {
             </S.PasswordTitle>
             <S.InputArea>
               <S.SigninInput
-                placeholder='password'
+                placeholder='비밀번호를 입력해주세요.'
                 type='password'
                 autoComplete='current-password'
                 ref={passwordRef}

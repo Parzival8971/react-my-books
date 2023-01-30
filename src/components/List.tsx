@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import Layout from './Layout';
 import { Button, PageHeader, Table } from 'antd';
-
+import { BookOutlined } from '@ant-design/icons';
 import { BookResType } from '../types';
+import Layout from './Layout';
 import Book from './Book';
 
 interface BooksProps {
@@ -31,15 +31,19 @@ export const List = ({
     if (error) {
       logout();
     }
-  }, []);
+  }, [error, logout]);
 
   const addBook = () => {};
 
   return (
     <Layout>
       <PageHeader
-        title='나만의 책장'
-        subTitle='리스트를 추가해보세요!'
+        title={
+          <div>
+            <BookOutlined /> 나만의 책장
+          </div>
+        }
+        subTitle='나만의 책장을 만들어 보세요!'
         extra={[
           <Button key='2' ghost type='primary' onClick={goAdd}>
             책 추가하기
