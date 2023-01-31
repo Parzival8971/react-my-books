@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BookResType } from '../types';
+import { BookReqType, BookResType } from './../types';
 
 const BOOK_API_URL = 'https://api.marktube.tv/v1/book';
 
@@ -13,7 +13,7 @@ export const BookService = {
     return response.data;
   },
 
-  async addBook(book: BookResType, token: string): Promise<BookResType> {
+  async addBook(token: string, book: BookReqType): Promise<BookResType> {
     const response = await axios.post(BOOK_API_URL, book, {
       headers: {
         Authorization: `Bearer ${token}`,

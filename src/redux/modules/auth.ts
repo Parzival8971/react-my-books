@@ -13,7 +13,7 @@ export interface AuthState {
 }
 
 const options = { prefix: 'practs/auth' };
-
+// export const success = () => ({type:PENDING})과 같은 형식
 export const { success, pending, fail } = createActions(
   'PENDING',
   'SUCCESS',
@@ -90,7 +90,9 @@ function* logoutSaga() {
   try {
     yield put(pending());
     // State Get Token
+    // state는 auth.ts파일을 뜻함
     const token: string = yield select((state) => state.auth.token);
+    yield select((state) => console.log(state));
     // TokenAPI Delete
     yield call(UserService.logout, token);
     // push

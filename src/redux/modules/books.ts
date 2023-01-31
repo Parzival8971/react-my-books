@@ -1,8 +1,8 @@
+import { AnyAction } from 'redux';
 import { createActions, handleActions } from 'redux-actions';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { BookService } from '../../services/BookService';
-
-import { BookResType, customError } from '../../types';
+import { BookReqType, BookResType, customError } from '../../types';
 
 export interface BooksState {
   books: BookResType[] | null;
@@ -46,7 +46,11 @@ const reducer = handleActions<BooksState, BookResType[]>(
 export default reducer;
 
 // saga
-export const { getBooks } = createActions('GET_BOOKS', options);
+export const { getBooks, addBook } = createActions(
+  'GET_BOOKS',
+  'ADD_BOOK',
+  options
+);
 
 function* getBooksSaga() {
   try {
@@ -68,6 +72,36 @@ function* getBooksSaga() {
     }
   }
 }
+
+interface AddBookSagaAction extends AnyAction {
+  payload: BookReqType;
+}
+
+function* addBookSaga(action: AddBookSagaAction) {
+  try {
+    console.log(action);
+    yield put(pending());
+    const token: string = yield select((state) => state.auth.token);
+    const book: BookResType = yield call(
+      BookService.addBook,
+      token,
+      action.payload
+    );
+    const books: BookResType[] = yield select((state) => state.books.books);
+    yield select((state) => console.log(state.books));
+    yield put(success([...books, book]));
+  } catch (error) {
+    if (error instanceof customError) {
+      yield put(
+        fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
+      );
+    } else {
+      yield put(fail(new Error('UNKNOWN_ERROR')));
+    }
+  }
+}
+
 export function* booksSaga() {
   yield takeLatest(`${options.prefix}/GET_BOOKS`, getBooksSaga);
+  yield takeLatest(`${options.prefix}/ADD_BOOK`, addBookSaga);
 }

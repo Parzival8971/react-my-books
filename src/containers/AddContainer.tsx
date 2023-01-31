@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Add from '../components/Add';
 import { RootState } from '../redux/modules/rootReducer';
 import { logout as logoutSaga } from '../redux/modules/auth';
+import { addBook as addBookSaga } from '../redux/modules/books';
+import { BookReqType } from '../types';
 
 const AddContainer = () => {
   const loading = useSelector<RootState, boolean>(
@@ -22,7 +24,15 @@ const AddContainer = () => {
     navigate(-1);
   }, [navigate]);
 
-  return <Add loading={loading} back={back} logout={logout} />;
+  const add = useCallback(
+    (book: BookReqType) => {
+      dispatch(addBookSaga(book));
+      navigate('/');
+    },
+    [dispatch, navigate]
+  );
+
+  return <Add add={add} loading={loading} back={back} logout={logout} />;
 };
 
 export default AddContainer;
