@@ -1,8 +1,9 @@
+import axios from 'axios';
 import { AnyAction } from 'redux';
 import { createActions, handleActions } from 'redux-actions';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { BookService } from '../../services/BookService';
-import { BookReqType, BookResType, customError } from '../../types';
+import { BookReqType, BookResType } from '../../types';
 
 export interface BooksState {
   books: BookResType[] | null;
@@ -65,16 +66,15 @@ function* getBooksSaga() {
     const books: BookResType[] = yield call(BookService.getBooks, token);
     yield put(success(books));
   } catch (error) {
-    // 타입가드로 클래스 에러 객체 사용(에러 부분 어려움)
-    // console.log(error.code);
-    // console.log(error.message);
-    // console.log(error?.response?.data?.error);
-    if (error instanceof customError) {
+    if (axios.isAxiosError(error)) {
+      // console.error('error message: ', error);
+      console.error('error message: ', error?.response?.data?.error);
       yield put(
         fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
       );
     } else {
-      yield put(fail(new Error('UNKNOWN_ERROR')));
+      console.error('unexpected error: ', error);
+      return 'An unexpected error occurred';
     }
   }
 }
@@ -95,12 +95,15 @@ function* addBookSaga(action: AddBookSagaAction) {
     const books: BookResType[] = yield select((state) => state.books.books);
     yield put(success([...books, book]));
   } catch (error) {
-    if (error instanceof customError) {
+    if (axios.isAxiosError(error)) {
+      // console.error('error message: ', error);
+      console.error('error message: ', error?.response?.data?.error);
       yield put(
         fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
       );
     } else {
-      yield put(fail(new Error('UNKNOWN_ERROR')));
+      console.error('unexpected error: ', error);
+      return 'An unexpected error occurred';
     }
   }
 }
@@ -118,12 +121,15 @@ function* deleteBookSaga(action: DeleteBookSagaAction) {
     const books: BookResType[] = yield select((state) => state.books.books);
     yield put(success(books.filter((book) => book.bookId !== bookId)));
   } catch (error) {
-    if (error instanceof customError) {
+    if (axios.isAxiosError(error)) {
+      // console.error('error message: ', error);
+      console.error('error message: ', error?.response?.data?.error);
       yield put(
         fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
       );
     } else {
-      yield put(fail(new Error('UNKNOWN_ERROR')));
+      console.error('unexpected error: ', error);
+      return 'An unexpected error occurred';
     }
   }
 }
