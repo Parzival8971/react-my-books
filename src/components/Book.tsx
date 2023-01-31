@@ -17,9 +17,20 @@ interface BookProps {
   author: string;
   createdAt: string;
   url: string;
+  deleteBook: (bookId: number) => void;
 }
 
-const Book = ({ bookId, title, author, createdAt, url }: BookProps) => {
+const Book = ({
+  bookId,
+  title,
+  author,
+  createdAt,
+  url,
+  deleteBook,
+}: BookProps) => {
+  const clickDelete = () => {
+    deleteBook(bookId);
+  };
   return (
     <S.Book>
       <S.Title>
@@ -55,6 +66,7 @@ const Book = ({ bookId, title, author, createdAt, url }: BookProps) => {
             shape='circle'
             danger
             icon={<DeleteOutlined />}
+            onClick={clickDelete}
           />
         </Tooltip>
       </S.Tooltips>

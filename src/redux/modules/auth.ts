@@ -5,6 +5,7 @@ import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { UserService } from '../../services/UserService';
 
 import { customError, LoginReqType } from '../../types';
+import axios from 'axios';
 
 export interface AuthState {
   token: string | null;
@@ -15,8 +16,10 @@ export interface AuthState {
 const options = { prefix: 'practs/auth' };
 // export const success = () => ({type:PENDING})과 같은 형식
 export const { success, pending, fail } = createActions(
+  {
+    SUCCESS: (token: string) => token,
+  },
   'PENDING',
-  'SUCCESS',
   'FAIL',
   options
 );
@@ -54,7 +57,16 @@ const reducer = handleActions<AuthState, string>(
 export default reducer;
 
 // saga
-export const { login, logout } = createActions('LOGIN', 'LOGOUT', options);
+export const { login, logout } = createActions(
+  {
+    LOGIN: ({ email, password }: LoginReqType) => ({
+      email,
+      password,
+    }),
+  },
+  'LOGOUT',
+  options
+);
 
 interface LoginSagaAction extends AnyAction {
   payload: LoginReqType;
@@ -70,19 +82,25 @@ function* loginSaga(action: LoginSagaAction) {
     // Success
     yield put(success(token));
     // push not complate
+    console.log(success(token));
   } catch (error) {
     // 타입가드로 클래스 에러 객체 사용(에러 부분 어려움)
     // console.log(error);
     // console.log(error.code);
     // console.log(error.message);
     // console.log(error?.response?.data?.error);
-    if (error instanceof customError) {
-      yield put(
-        fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
-      );
-    } else {
-      yield put(fail(new Error('UNKNOWN_ERROR')));
+    if (axios.isAxiosError(error)) {
+      console.log('error message: ', error.message);
+      // 👇️ error: AxiosError<any, any>
+      return error.message;
     }
+    // if (error instanceof customError) {
+    //   yield put(
+    //     fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
+    //   );
+    // } else {
+    //   yield put(fail(new Error('UNKNOWN_ERROR')));
+    // }
   }
 }
 
@@ -92,7 +110,6 @@ function* logoutSaga() {
     // State Get Token
     // state는 auth.ts파일을 뜻함
     const token: string = yield select((state) => state.auth.token);
-    yield select((state) => console.log(state));
     // TokenAPI Delete
     yield call(UserService.logout, token);
     // push

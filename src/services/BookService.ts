@@ -21,4 +21,12 @@ export const BookService = {
     });
     return response.data;
   },
+
+  async deleteBook(token: string, bookId: number): Promise<void> {
+    await axios.delete(`${BOOK_API_URL}/${bookId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

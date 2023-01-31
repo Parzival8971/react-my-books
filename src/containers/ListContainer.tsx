@@ -5,7 +5,10 @@ import { List } from '../components/List';
 import { RootState } from '../redux/modules/rootReducer';
 import { BookResType } from '../types';
 
-import { getBooks as getBooksSaga } from '../redux/modules/books';
+import {
+  getBooks as getBooksSaga,
+  deleteBook as deleteBookSaga,
+} from '../redux/modules/books';
 import { logout as logoutSaga } from '../redux/modules/auth';
 
 export const ListContainer = () => {
@@ -34,6 +37,13 @@ export const ListContainer = () => {
     navigate('/add');
   }, [navigate]);
 
+  const deleteBook = useCallback(
+    (bookId: number) => {
+      dispatch(deleteBookSaga(bookId));
+    },
+    [dispatch]
+  );
+
   return (
     <List
       books={books}
@@ -42,6 +52,7 @@ export const ListContainer = () => {
       error={error}
       logout={logout}
       goAdd={goAdd}
+      deleteBook={deleteBook}
     />
   );
 };
