@@ -3,6 +3,7 @@ import { Button, Input, Row } from 'antd';
 
 export const SigninRow = styled(Row)`
   height: 100vh;
+  background: #f6f5ef;
 `;
 
 export const SigninContents = styled(Row)`
@@ -11,8 +12,9 @@ export const SigninContents = styled(Row)`
   margin-bottom: 50px;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 8px;
-  background-color: #f6f6f6;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: white;
   padding: 60px 0px;
   box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
 `;
@@ -21,7 +23,7 @@ export const SigninTitle = styled.div`
   text-align: center;
   font-size: 30px;
   font-weight: bold;
-  color: #212121;
+  color: #006633;
   text-transform: uppercase;
 `;
 
@@ -40,7 +42,7 @@ export const SigninUnderline = styled.div`
   margin-left: auto;
   margin-bottom: 40px;
   border-radius: 5px;
-  background: linear-gradient(to right, #4455ff, #8055dd);
+  background: linear-gradient(to right, #996633, #006633);
 `;
 
 export const Required = styled.span`
@@ -67,7 +69,6 @@ export const SigninInput = styled(Input)`
   width: 100%;
   border-radius: 1px;
   border-width: 1px;
-  font-family: Roboto;
   border-radius: 6px;
 `;
 

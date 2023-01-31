@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { List } from '../components/List';
+import List from '../components/List';
 import { RootState } from '../redux/modules/rootReducer';
 import { BookResType } from '../types';
 
@@ -37,6 +37,13 @@ export const ListContainer = () => {
     navigate('/add');
   }, [navigate]);
 
+  const goEdit = useCallback(
+    (bookId: number) => {
+      navigate(`/edit/${bookId}`);
+    },
+    [navigate]
+  );
+
   const deleteBook = useCallback(
     (bookId: number) => {
       dispatch(deleteBookSaga(bookId));
@@ -52,6 +59,7 @@ export const ListContainer = () => {
       error={error}
       logout={logout}
       goAdd={goAdd}
+      goEdit={goEdit}
       deleteBook={deleteBook}
     />
   );

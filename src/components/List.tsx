@@ -12,16 +12,18 @@ interface BooksProps {
   getBooks: () => void;
   logout: () => void;
   goAdd: () => void;
+  goEdit: (bookId: number) => void;
   deleteBook: (bookId: number) => void;
 }
 
-export const List = ({
+const List = ({
   books,
   loading,
   getBooks,
   error,
   logout,
   goAdd,
+  goEdit,
   deleteBook,
 }: BooksProps) => {
   useEffect(() => {
@@ -30,9 +32,9 @@ export const List = ({
 
   // data를 가져오다가 에러가 생겼을 경우 로직
   useEffect(() => {
-    // if (error) {
-    //   logout();
-    // }
+    if (error) {
+      logout();
+    }
   }, [error, logout]);
 
   return (
@@ -61,7 +63,9 @@ export const List = ({
             dataIndex: 'book',
             key: 'book',
             // ...record는 dataSource에 넣어준 값들을 펼쳐서 넣어줌
-            render: (_, record) => <Book {...record} deleteBook={deleteBook} />,
+            render: (_, record) => (
+              <Book {...record} deleteBook={deleteBook} goEdit={goEdit} />
+            ),
           },
         ]}
         loading={books === null || loading}
@@ -73,3 +77,5 @@ export const List = ({
     </Layout>
   );
 };
+
+export default List;

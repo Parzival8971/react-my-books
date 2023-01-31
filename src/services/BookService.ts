@@ -29,4 +29,17 @@ export const BookService = {
       },
     });
   },
+
+  async editBook(
+    token: string,
+    bookId: number,
+    book: BookReqType
+  ): Promise<BookResType> {
+    const response = await axios.patch(`${BOOK_API_URL}/${bookId}`, book, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  },
 };

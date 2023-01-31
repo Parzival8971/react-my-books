@@ -50,12 +50,14 @@ const reducer = handleActions<BooksState, BookResType[]>(
 export default reducer;
 
 // saga
-export const { getBooks, addBook, deleteBook } = createActions(
+export const { getBooks, addBook, deleteBook, editBook } = createActions(
   {
     ADD_BOOK: (book: BookReqType) => book,
     DELETE_BOOK: (bookId: string) => bookId,
+    EDIT_BOOK: (bookId: string, book: BookReqType) => ({ bookId, book }),
   },
   'GET_BOOKS',
+
   options
 );
 
@@ -133,9 +135,47 @@ function* deleteBookSaga(action: DeleteBookSagaAction) {
     }
   }
 }
+interface EditBookSagaAction extends AnyAction {
+  payload: {
+    bookId: number;
+    book: BookReqType;
+  };
+}
+
+function* editBookSaga(action: EditBookSagaAction) {
+  console.log(action);
+  try {
+    yield put(pending());
+    const token: string = yield select((state) => state.auth.token);
+    const newBook: EditBookSagaAction = yield call(
+      BookService.editBook,
+      token,
+      action.payload.bookId,
+      action.payload.book
+    );
+    const books: BookResType[] = yield select((state) => state.books.books);
+    yield put(
+      success(
+        books.map((book) => (book.bookId === newBook.bookId ? newBook : book))
+      )
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      // console.error('error message: ', error);
+      console.error('error message: ', error?.response?.data?.error);
+      yield put(
+        fail(new Error(error?.response?.data?.error || 'UNKNOWN_ERROR'))
+      );
+    } else {
+      console.error('unexpected error: ', error);
+      return 'An unexpected error occurred';
+    }
+  }
+}
 
 export function* booksSaga() {
   yield takeLatest(`${options.prefix}/GET_BOOKS`, getBooksSaga);
   yield takeLatest(`${options.prefix}/ADD_BOOK`, addBookSaga);
   yield takeLatest(`${options.prefix}/DELETE_BOOK`, deleteBookSaga);
+  yield takeLatest(`${options.prefix}/EDIT_BOOK`, editBookSaga);
 }

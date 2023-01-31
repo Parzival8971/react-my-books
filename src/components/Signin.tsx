@@ -1,18 +1,35 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { UserOutlined } from '@ant-design/icons';
-import { Col, Input } from 'antd';
+import { Col, Input, message } from 'antd';
 import * as S from './Signin.styles';
 
 import { LoginReqType } from '../types';
 
 interface SigninProps {
   login: (reqData: LoginReqType) => void;
+  error: Error | null;
+  loading: boolean;
 }
 
-const Signin = ({ login }: SigninProps) => {
+const Signin = ({ login, error, loading }: SigninProps) => {
   // antd의 Input tpye 바인딩
   const emailRef = useRef<Input>(null);
   const passwordRef = useRef<Input>(null);
+
+  useEffect(() => {
+    if (error === null) return;
+    // 에러 관련 메세지
+    switch (error.message) {
+      case 'USER_NOT_EXIST':
+        message.error('존재하지 않는 아이디입니다.');
+        break;
+      case 'PASSWORD_NOT_MATCH':
+        message.error('비밀번호가 틀렸습니다.');
+        break;
+      default:
+        message.error('알 수 없는 에러입니다.');
+    }
+  }, [error]);
 
   const handleSubmit = () => {
     // antd의 value값은 state에 있음
@@ -58,7 +75,11 @@ const Signin = ({ login }: SigninProps) => {
               />
             </S.InputArea>
             <S.ButtonArea>
-              <S.SigninButton size='large' onClick={handleSubmit}>
+              <S.SigninButton
+                loading={loading}
+                size='large'
+                onClick={handleSubmit}
+              >
                 로그인
               </S.SigninButton>
             </S.ButtonArea>
