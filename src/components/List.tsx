@@ -4,6 +4,7 @@ import { BookOutlined } from '@ant-design/icons';
 import { BookResType } from '../types';
 import Layout from './Layout';
 import Book from './Book';
+import * as S from './List.styles';
 
 interface BooksProps {
   books: BookResType[] | null;
@@ -55,6 +56,9 @@ const List = ({
           </Button>,
         ]}
       />
+
+      <S.BgList src='/bg_book.jpg' alt='books' />
+
       <Table
         dataSource={books || []}
         columns={[

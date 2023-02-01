@@ -5,5 +5,4 @@ export const Layout = styled.div`
   margin-right: auto;
   width: 800px;
   margin-bottom: 50px;
-  border: 1px solid #ddd;
 `;

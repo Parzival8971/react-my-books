@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Button, Input } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 
-export const Edit = styled.div`
+export const Detail = styled.div`
   width: 800px;
   margin-left: auto;
   margin-right: auto;

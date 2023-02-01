@@ -10,11 +10,13 @@ import Edit from './pages/Edit';
 
 import NotFound from './pages/NotFound';
 import Error from './pages/Error';
+import ScrollToTop from './hooks/useScrollToTop';
 
 function App() {
   return (
     <ErrorBoundary FallbackComponent={Error}>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/signin' element={<Signin />} />

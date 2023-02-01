@@ -99,6 +99,7 @@ const Edit = ({
           </Button>,
         ]}
       />
+
       <S.BgBook src='/bg_book.jpg' alt='books' />
 
       <S.Edit>

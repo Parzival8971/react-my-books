@@ -1,9 +1,14 @@
-import React from 'react';
+import { Navigate } from 'react-router-dom';
+import DetailContainer from '../containers/DetailContainer';
+import { useToken } from '../hooks/useToken';
 
-type Props = {};
+const Detail = () => {
+  const token = useToken();
 
-const Detail = (props: Props) => {
-  return <div>Detail</div>;
+  if (token === null) {
+    return <Navigate replace to='/signin' />;
+  }
+  return <DetailContainer />;
 };
 
 export default Detail;

@@ -4,10 +4,11 @@ import { Button, Input, Row } from 'antd';
 export const SigninRow = styled(Row)`
   height: 100vh;
   background: #f6f5ef;
+  position: relative;
 `;
 
 export const SigninContents = styled(Row)`
-  width: 360px;
+  max-width: 560px;
   margin-top: 50px;
   margin-bottom: 50px;
   margin-left: auto;
@@ -16,12 +17,13 @@ export const SigninContents = styled(Row)`
   border-radius: 3px;
   background-color: white;
   padding: 60px 0px;
-  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 20%);
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 100%);
+  font-family: 'KyoboHand', sans-serif;
 `;
 
 export const SigninTitle = styled.div`
   text-align: center;
-  font-size: 30px;
+  font-size: 60px;
   font-weight: bold;
   color: #006633;
   text-transform: uppercase;
@@ -35,13 +37,13 @@ export const SigninSubtitle = styled.div`
 `;
 
 export const SigninUnderline = styled.div`
-  width: 120px;
+  width: 80px;
   height: 3px;
   margin-top: 10px;
   margin-right: auto;
   margin-left: auto;
   margin-bottom: 40px;
-  border-radius: 5px;
+  border-radius: 20%;
   background: linear-gradient(to right, #996633, #006633);
 `;
 
@@ -89,12 +91,27 @@ export const ButtonArea = styled.div`
 `;
 
 export const SigninButton = styled(Button)`
-  border-color: #2455ff;
-  background-color: #4455ff;
+  border-color: #006633;
+  background-color: #006633;
   text-transform: uppercase;
+  border: none;
+  outline: none;
   border-radius: 10px;
-  border-width: 2px;
   color: white;
   width: 100%;
   font-weight: 700;
+  &:hover {
+    color: white;
+    border-color: #006633;
+    background-color: #006633;
+    text-decoration: underline;
+  }
+`;
+
+export const BgSignin = styled.img`
+  position: absolute;
+  width: 100%;
+  object-fit: cover;
+  margin: auto;
+  display: block;
 `;

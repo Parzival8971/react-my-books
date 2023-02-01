@@ -1,7 +1,7 @@
 import { TokenSerivce } from './../../services/TokenService';
 import { AnyAction } from 'redux';
 import { createActions, handleActions } from 'redux-actions';
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
 import { UserService } from '../../services/UserService';
 
 import { LoginReqType } from '../../types';
@@ -75,13 +75,15 @@ interface LoginSagaAction extends AnyAction {
 function* loginSaga(action: LoginSagaAction) {
   try {
     yield put(pending());
-    // TokenAPI Post
+    // 토큰 api
     const token: string = yield call(UserService.login, action.payload);
-    // Localstorege Set Token
+    // 로컬에 저장
     TokenSerivce.set(token);
-    // Success
+    // 지연시간 생성
+    yield delay(1000);
+    // 성공
     yield put(success(token));
-    // push not complate
+    // 확인용
     console.log(success(token));
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -100,15 +102,13 @@ function* loginSaga(action: LoginSagaAction) {
 function* logoutSaga() {
   try {
     yield put(pending());
-    // State Get Token
+    // 로컬 토큰 get
     // state는 auth.ts파일을 뜻함
     const token: string = yield select((state) => state.auth.token);
-    // TokenAPI Delete
     yield call(UserService.logout, token);
-    // push
   } catch (error) {
   } finally {
-    // Localstorege Remove Token
+    // 로컬 토큰 삭제
     TokenSerivce.remove();
     yield put(success(null));
   }

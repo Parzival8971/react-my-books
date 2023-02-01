@@ -80,6 +80,7 @@ export const ButtonArea = styled.div`
 `;
 
 export const AtndButton = styled(Button)`
+  margin-bottom: 20px;
   text-transform: uppercase;
   border-radius: 1px;
   border-width: 2px;

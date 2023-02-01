@@ -40,11 +40,12 @@ const Signin = ({ login, error, loading }: SigninProps) => {
 
   return (
     <S.SigninRow align='middle'>
+      <S.BgSignin src='/bg_book.jpg' alt='books' />
       <Col span={24}>
         <S.SigninContents>
           <Col span={24}>
-            <S.SigninTitle>My Books</S.SigninTitle>
-            <S.SigninSubtitle>당신의 책 리스트</S.SigninSubtitle>
+            <S.SigninTitle>나만의 책장</S.SigninTitle>
+            <S.SigninSubtitle>올해는 책 좀 읽자</S.SigninSubtitle>
             <div />
             <S.SigninUnderline />
             <S.EmailTitle>
@@ -79,6 +80,7 @@ const Signin = ({ login, error, loading }: SigninProps) => {
                 loading={loading}
                 size='large'
                 onClick={handleSubmit}
+                disabled={false}
               >
                 로그인
               </S.SigninButton>
