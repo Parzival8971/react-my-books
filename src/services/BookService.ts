@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BookReqType, BookResType } from './../types';
 
 const BOOK_API_URL = 'https://api.marktube.tv/v1/book';
-
+// API 객체형태로 관리
 export const BookService = {
   async getBooks(token: string): Promise<BookResType[]> {
     const response = await axios.get(BOOK_API_URL, {

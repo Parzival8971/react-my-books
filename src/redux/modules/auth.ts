@@ -13,7 +13,7 @@ export interface AuthState {
   error: Error | null;
 }
 
-const options = { prefix: 'practs/auth' };
+const options = { prefix: 'mybooks/auth' };
 // export const success = () => ({type:PENDING})과 같은 형식
 export const { success, pending, fail } = createActions(
   {
@@ -84,7 +84,6 @@ function* loginSaga(action: LoginSagaAction) {
     // 성공
     yield put(success(token));
     // 확인용
-    console.log(success(token));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // console.error('error message: ', error);

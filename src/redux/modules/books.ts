@@ -11,7 +11,7 @@ export interface BooksState {
   error: Error | null;
 }
 
-const options = { prefix: 'practs/books' };
+const options = { prefix: 'mybooks/books' };
 
 export const { pending, success, fail } = createActions(
   {
