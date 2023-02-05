@@ -1,10 +1,10 @@
-![React Emotion Diary App](./banner.jpg)
+![React Book List App](./banner.jpg)
 
-# React Emotion Diary App
+# React Book List App
 
-간단한 CRUD 기능을 갖춘 감성 일기장 애플리케이션.
+간단한 CRUD 기능을 갖춘 나만의 책장 애플리케이션
 
-**웹 배포 : [https://prototypediary.netlify.app/](https://prototypediary.netlify.app/)**
+**웹 배포 : [https://prototypebooks.netlify.app/](https://prototypebooks.netlify.app/)**
 
 #### Made with 🐥 by [Pazival8971](https://github.com/Parzival8971)
 
@@ -12,8 +12,8 @@
 
 ## 프로젝트 설명
 
-이 프로젝트는 Todo 애플리케이션을 활용하여, `나만의 책 리스트`를 만듭니다.
-간단한 CURD 기능을 갖추고 작업을 수행하였습니다. `react.js`를 사용하고, 상태를 관리하기 위해 `redux`를 사용하였습니다. UI 부분은 `emotion, antd`을 사용하였습니다. 이 앱을 만들면서 소규모이지만, 실무에서 사용되는 경험을 익히기 위해 redux + saga의 전역 상태 관리와 비동기 처리의 사용법과 학습 및 적용에 중점을 두고 만들었습니다.
+이 프로젝트는 Todo 애플리케이션을 활용하여, `나만의 책장`를 만듭니다.
+간단한 CURD 기능을 갖추고 작업을 수행하였습니다. `React.js`를 사용하고, 상태를 관리와 비동기 처리를 위해 `Redux-saga`를 사용하였습니다. UI 부분은 `Emotion, Antd`을 사용하였습니다. 이 앱을 만들면서 소규모이지만, 실무에서 사용되는 경험을 익히기 위해 redux + saga의 전역 상태 관리와 비동기 처리의 사용법과 학습 및 적용에 중점을 두고 만들었습니다.
 
 ---
 
@@ -33,7 +33,7 @@
 ## 구조도
 
 ```
-🔄
+🖥
 ├─ src
 │  ├─ components
 │  │  ├─ Signin.styles.ts
@@ -41,6 +41,7 @@
 │  ├─ containers
 │  │  └─ SigninContainer.tsx
 │  ├─ hooks
+│  │  └─ useScrollToTop.ts
 │  │  └─ useToken.ts
 │  ├─ pages
 │  │  └─ Signin.tsx
@@ -441,7 +442,7 @@ const Error = ({ error }: FallbackProps) => {
 
 - 결과를 눌렀을 때만 행위를 보여준다면 확실히 비제어 컴포넌트가 리렌더링이 발생하지 않고 좋다고 이번 학습을 통해 인지하였습니다. 기존에는 방법을 몰랐기에 리액트에게 위임해 제어컴포넌트로 로그인, 회원가입 페이지를 만들었습니다만 성능 최적화에 대해 학습하게 되어 필요에 따라 구분해서 사용해야 하는 이유에 대해서 알게 되었습니다.
 
-<br/><br/>
+<br/>
 
 ## 😂 Self Feedback
 
