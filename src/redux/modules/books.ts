@@ -57,7 +57,6 @@ export const { getBooks, addBook, deleteBook, editBook } = createActions(
     EDIT_BOOK: (bookId: string, book: BookReqType) => ({ bookId, book }),
   },
   'GET_BOOKS',
-
   options
 );
 

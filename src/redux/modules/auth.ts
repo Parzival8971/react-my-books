@@ -14,7 +14,7 @@ export interface AuthState {
 }
 
 const options = { prefix: 'mybooks/auth' };
-// export const success = () => ({type:PENDING})과 같은 형식
+// export const success = (token) => ({type:PENDING, payload: token})과 같은 형식
 export const { success, pending, fail } = createActions(
   {
     SUCCESS: (token: string) => token,

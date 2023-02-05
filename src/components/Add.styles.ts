@@ -6,6 +6,7 @@ export const Add = styled.div`
   width: 800px;
   margin-left: auto;
   margin-right: auto;
+  border: 1px solid #ddd;
 `;
 
 export const InputTitle = styled.div`
@@ -85,4 +86,12 @@ export const AtndButton = styled(Button)`
   border-radius: 1px;
   border-width: 2px;
   width: 120px;
+`;
+
+export const BgBook = styled.img`
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin: auto;
+  display: block;
 `;

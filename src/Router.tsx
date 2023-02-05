@@ -12,7 +12,7 @@ import NotFound from './pages/NotFound';
 import Error from './pages/Error';
 import ScrollToTop from './hooks/useScrollToTop';
 
-function App() {
+function Router() {
   return (
     <ErrorBoundary FallbackComponent={Error}>
       <BrowserRouter>
@@ -30,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default Router;

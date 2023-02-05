@@ -1,7 +1,6 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Router from './Router';
 // antd-css 적용
 import 'antd/dist/antd.css';
 // redux-store
@@ -11,10 +10,8 @@ import { Provider } from 'react-redux';
 
 const store = create();
 ReactDOM.render(
-  // <React.StrictMode>
   <Provider store={store}>
-    <App />
+    <Router />
   </Provider>,
-  // </React.StrictMode>,
   document.getElementById('root')
 );

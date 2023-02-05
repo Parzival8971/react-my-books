@@ -75,6 +75,9 @@ const Add = ({
           </Button>,
         ]}
       />
+
+      <S.BgBook src='/bg_book.jpg' alt='books' />
+
       <S.Add>
         <S.InputTitle>
           제목

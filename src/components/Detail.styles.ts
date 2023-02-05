@@ -6,6 +6,7 @@ export const Detail = styled.div`
   width: 800px;
   margin-left: auto;
   margin-right: auto;
+  border: 1px solid #ddd;
 `;
 
 export const InputTitle = styled.div`
